@@ -1,0 +1,31 @@
+const byte ledPin = 13;
+const byte interruptPin = 7;
+volatile byte state = LOW;
+volatile int count = 0;
+volatile int tempCountNumber = 0;
+
+void setup() {
+  Serial.begin (115200);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB
+  }
+  pinMode(ledPin, OUTPUT);
+  pinMode(interruptPin, INPUT);
+  //  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, CHANGE);
+}
+
+void loop() {
+  int sensorVal = digitalRead(interruptPin);
+  if (sensorVal != tempCountNumber) {
+    Serial.println(count);
+    tempCountNumber = sensorVal;
+    count ++ ;
+  }
+//  if (sensorVal == HIGH) {
+//    digitalWrite(ledPin, HIGH);
+//  }
+//  else {
+//    digitalWrite(ledPin, LOW);
+//  }
+  delay(1);
+}
